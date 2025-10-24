@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EX3M CASINO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #333;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: white;
+        }
+        
+        .logo .red {
+            color: #ff3333;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .balance {
+            background: #222;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            border: 1px solid #444;
+        }
+        
+        .balance span {
+            color: gold;
+            font-weight: bold;
+        }
+        
+        .save-btn {
+            background: #ff3333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #cc0000;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .game-card {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #444;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-image {
+            height: 180px;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #aaa;
+        }
+        
+        .game-info {
+            padding: 15px;
+        }
+        
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .play-btn {
+            background: #ff3333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .play-btn:hover {
+            background: #cc0000;
+        }
+        
+        .bonus-section {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+        
+        .bonus-btn {
+            background: gold;
+            color: black;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        
+        .bonus-btn:hover {
+            background: #ffcc00;
+        }
+        
+        .transaction-section {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #444;
+        }
+        
+        .transaction-section h2 {
+            margin-bottom: 15px;
+        }
+        
+        .transaction-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .transaction-input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #333;
+            color: white;
+        }
+        
+        .transaction-btn {
+            background: #ff3333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .transaction-btn:hover {
+            background: #cc0000;
+        }
+        
+        .transaction-history {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .transaction-item {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .positive {
+            color: #00cc66;
+        }
+        
+        .negative {
+            color: #ff3333;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid #444;
+        }
+        
+        .modal h2 {
+            margin-bottom: 20px;
+        }
+        
+        .modal p {
+            margin-bottom: 20px;
+        }
+        
+        .close-btn {
+            background: #ff3333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span>EX</span><span class="red">3</span><span>M CASINO</span>
+            </div>
+            <div class="user-info">
+                <div class="balance">Баланс: <span id="balance">1000</span> EXM</div>
+                <button class="save-btn" id="saveBtn">Сохранить</button>
+            </div>
+        </header>
+        
+        <main>
+            <section class="bonus-section">
+                <h2>Ежедневный бонус</h2>
+                <p>Получите 100 EXM каждый день за посещение казино!</p>
+                <button class="bonus-btn" id="bonusBtn">Получить бонус</button>
+            </section>
+            
+            <section class="games-grid">
+                <div class="game-card">
+                    <div class="game-image">Слот-машина</div>
+                    <div class="game-info">
+                        <h3 class="game-title">Классические слоты</h3>
+                        <p>Попробуйте удачу в классических слотах с высокими выплатами.</p>
+                        <button class="play-btn" data-game="slots">Играть</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-image">Рулетка</div>
+                    <div class="game-info">
+                        <h3 class="game-title">Европейская рулетка</h3>
+                        <p>Сделайте ставку на цвет, число или комбинацию.</p>
+                        <button class="play-btn" data-game="roulette">Играть</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-image">Блэкджек</div>
+                    <div class="game-info">
+                        <h3 class="game-title">Блэкджек 21</h3>
+                        <p>Победите дилера, набрав 21 очко или близкое к нему.</p>
+                        <button class="play-btn" data-game="blackjack">Играть</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="transaction-section">
+                <h2>Пополнение и вывод средств</h2>
+                <div class="transaction-controls">
+                    <input type="number" class="transaction-input" id="amountInput" placeholder="Сумма" min="1">
+                    <button class="transaction-btn" id="depositBtn">Пополнить</button>
+                    <button class="transaction-btn" id="withdrawBtn">Вывести</button>
+                </div>
+                <h3>История операций</h3>
+                <div class="transaction-history" id="transactionHistory">
+                    <!-- История транзакций будет здесь -->
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>EX3M CASINO - это фейк-казино для развлечения. Никакие реальные деньги не используются.</p>
+            <p>Все права защищены &copy; 2023</p>
+        </footer>
+    </div>
+    
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Игра</h2>
+            <p id="modalMessage">Эта игра в разработке. В будущем здесь появится полноценная игровая механика.</p>
+            <button class="close-btn" id="closeModal">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        // Инициализация данных пользователя
+        let userData = {
+            balance: 1000,
+            lastBonusDate: null,
+            transactions: []
+        };
+
+        // Загрузка данных из localStorage
+        function loadUserData() {
+            const savedData = localStorage.getItem('ex3mCasinoData');
+            if (savedData) {
+                userData = JSON.parse(savedData);
+                updateUI();
+            }
+        }
+
+        // Сохранение данных в localStorage
+        function saveUserData() {
+            localStorage.setItem('ex3mCasinoData', JSON.stringify(userData));
+            alert('Данные успешно сохранены!');
+        }
+
+        // Обновление интерфейса
+        function updateUI() {
+            document.getElementById('balance').textContent = userData.balance;
+            updateTransactionHistory();
+        }
+
+        // Обновление истории транзакций
+        function updateTransactionHistory() {
+            const historyElement = document.getElementById('transactionHistory');
+            historyElement.innerHTML = '';
+            
+            if (userData.transactions.length === 0) {
+                historyElement.innerHTML = '<div class="transaction-item">Нет операций</div>';
+                return;
+            }
+            
+            // Показываем только последние 10 транзакций
+            const recentTransactions = userData.transactions.slice(-10).reverse();
+            
+            recentTransactions.forEach(transaction => {
+                const transactionElement = document.createElement('div');
+                transactionElement.className = 'transaction-item';
+                
+                const amountClass = transaction.amount > 0 ? 'positive' : 'negative';
+                const amountSign = transaction.amount > 0 ? '+' : '';
+                
+                transactionElement.innerHTML = `
+                    <span>${transaction.description}</span>
+                    <span class="${amountClass}">${amountSign}${transaction.amount} EXM</span>
+                `;
+                
+                historyElement.appendChild(transactionElement);
+            });
+        }
+
+        // Добавление транзакции
+        function addTransaction(amount, description) {
+            userData.transactions.push({
+                amount: amount,
+                description: description,
+                date: new Date().toLocaleString()
+            });
+            
+            // Ограничиваем историю 50 записями
+            if (userData.transactions.length > 50) {
+                userData.transactions = userData.transactions.slice(-50);
+            }
+        }
+
+        // Получение ежедневного бонуса
+        function claimDailyBonus() {
+            const today = new Date().toDateString();
+            
+            if (userData.lastBonusDate === today) {
+                alert('Вы уже получили бонус сегодня. Возвращайтесь завтра!');
+                return;
+            }
+            
+            userData.balance += 100;
+            userData.lastBonusDate = today;
+            addTransaction(100, 'Ежедневный бонус');
+            updateUI();
+            alert('Вы получили 100 EXM в качестве ежедневного бонуса!');
+        }
+
+        // Пополнение счета
+        function deposit(amount) {
+            if (isNaN(amount) || amount <= 0) {
+                alert('Введите корректную сумму для пополнения');
+                return;
+            }
+            
+            userData.balance += amount;
+            addTransaction(amount, 'Пополнение счета');
+            updateUI();
+            alert(`Вы успешно пополнили счет на ${amount} EXM`);
+        }
+
+        // Вывод средств
+        function withdraw(amount) {
+            if (isNaN(amount) || amount <= 0) {
+                alert('Введите корректную сумму для вывода');
+                return;
+            }
+            
+            if (amount > userData.balance) {
+                alert('Недостаточно средств на счете');
+                return;
+            }
+            
+            userData.balance -= amount;
+            addTransaction(-amount, 'Вывод средств');
+            updateUI();
+            alert(`Вы успешно вывели ${amount} EXM`);
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            
+            // Обработчики событий
+            document.getElementById('saveBtn').addEventListener('click', saveUserData);
+            document.getElementById('bonusBtn').addEventListener('click', claimDailyBonus);
+            document.getElementById('depositBtn').addEventListener('click', function() {
+                const amount = parseInt(document.getElementById('amountInput').value);
+                deposit(amount);
+                document.getElementById('amountInput').value = '';
+            });
+            document.getElementById('withdrawBtn').addEventListener('click', function() {
+                const amount = parseInt(document.getElementById('amountInput').value);
+                withdraw(amount);
+                document.getElementById('amountInput').value = '';
+            });
+            
+            // Обработчики для игр
+            document.querySelectorAll('.play-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const game = this.getAttribute('data-game');
+                    document.getElementById('modalTitle').textContent = this.parentElement.querySelector('.game-title').textContent;
+                    document.getElementById('modalMessage').textContent = 'Эта игра в разработке. В будущем здесь появится полноценная игровая механика.';
+                    document.getElementById('gameModal').style.display = 'flex';
+                });
+            });
+            
+            // Закрытие модального окна
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('gameModal').style.display = 'none';
+            });
+            
+            // Закрытие модального окна при клике вне его
+            window.addEventListener('click', function(event) {
+                if (event.target === document.getElementById('gameModal')) {
+                    document.getElementById('gameModal').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+  </html>
